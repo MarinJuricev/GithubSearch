@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="24dp"
+    android:paddingEnd="24dp"
+    app:cardCornerRadius="12dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_payment_response"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="sans-serif"
+            android:lineSpacingExtra="3sp"
+            android:text="@string/select_sort"
+            android:textAllCaps="true"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RadioGroup
+            android:id="@+id/rbSort"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="16dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_payment_response">
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/rbStarSort"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="-50dp"
+                android:button="@color/transparent"
+                android:drawableEnd="?android:attr/listChoiceIndicatorSingle"
+                android:drawablePadding="24dp"
+                android:duplicateParentState="false"
+                android:fontFamily="sans-serif"
+                android:paddingStart="70dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="10dp"
+                android:text="@string/stars"
+                android:textColor="@color/colorPrimaryDark"
+                android:textDirection="locale"
+                android:textSize="16sp"
+                android:textStyle="normal"
+                android:theme="@style/RadioButtonStyle" />
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/rbForksSort"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="-50dp"
+                android:button="@null"
+                android:drawableEnd="?android:attr/listChoiceIndicatorSingle"
+                android:drawablePadding="24dp"
+                android:fontFamily="sans-serif"
+                android:paddingStart="70dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="10dp"
+                android:text="@string/forks"
+                android:textColor="@color/colorPrimaryDark"
+                android:textDirection="locale"
+                android:textSize="16sp"
+                android:textStyle="normal"
+                android:theme="@style/RadioButtonStyle" />
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/rbUpdatedSort"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="-50dp"
+                android:button="@null"
+                android:drawableEnd="?android:attr/listChoiceIndicatorSingle"
+                android:drawablePadding="24dp"
+                android:fontFamily="sans-serif"
+                android:paddingStart="70dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="10dp"
+                android:text="@string/updated"
+                android:textColor="@color/colorPrimaryDark"
+                android:textDirection="locale"
+                android:textSize="16sp"
+                android:textStyle="normal"
+                android:theme="@style/RadioButtonStyle" />
+        </RadioGroup>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:id="@+id/root"
+    android:layout_height="wrap_content">
+
+    <com.evolutio.presentation.shared.views.CircleRectView
+        android:id="@+id/ivThumbnail"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:scaleType="centerCrop"
+        app:circleRadius="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@drawable/ic_search" />
+
+    <TextView
+        android:id="@+id/tvRepoDescription"
+        style="@style/TextAppearance.MaterialComponents.Body2"
+        android:layout_width="0dp"
+        android:ellipsize="end"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivThumbnail"
+        app:layout_constraintTop_toTopOf="@+id/ivThumbnail"
+        tools:text="RepoOwner/ProjectName" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/icStars"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/ic_star"
+        android:backgroundTint="@color/light_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvRepoDescription"
+        app:layout_constraintTop_toBottomOf="@+id/tvRepoDescription" />
+
+    <TextView
+        android:id="@+id/tvStarCount"
+        style="@style/TextAppearance.MaterialComponents.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/icStars"
+        app:layout_constraintStart_toEndOf="@+id/icStars"
+        app:layout_constraintTop_toTopOf="@+id/icStars"
+        tools:text="3212" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivWatchers"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="4dp"
+        android:background="@drawable/ic_watchers"
+        android:backgroundTint="@color/light_gray"
+        app:layout_constraintBottom_toBottomOf="@+id/tvStarCount"
+        app:layout_constraintStart_toEndOf="@+id/tvStarCount"
+        app:layout_constraintTop_toTopOf="@+id/tvStarCount" />
+
+    <TextView
+        android:id="@+id/tvWatcherCount"
+        style="@style/TextAppearance.MaterialComponents.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivWatchers"
+        app:layout_constraintStart_toEndOf="@+id/ivWatchers"
+        app:layout_constraintTop_toTopOf="@+id/ivWatchers"
+        tools:text="143" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivForks"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="4dp"
+        android:background="@drawable/ic_fork"
+        android:backgroundTint="@color/light_gray"
+        android:foregroundGravity="center"
+        app:layout_constraintBottom_toBottomOf="@+id/tvWatcherCount"
+        app:layout_constraintStart_toEndOf="@+id/tvWatcherCount"
+        app:layout_constraintTop_toTopOf="@+id/tvWatcherCount" />
+
+    <TextView
+        android:id="@+id/tvForkCount"
+        style="@style/TextAppearance.MaterialComponents.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivForks"
+        app:layout_constraintStart_toEndOf="@+id/ivForks"
+        app:layout_constraintTop_toTopOf="@+id/ivForks"
+        tools:text="523" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivIssues"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="4dp"
+        android:background="@drawable/ic_issues"
+        android:backgroundTint="@color/light_gray"
+        app:layout_constraintBottom_toBottomOf="@+id/tvForkCount"
+        app:layout_constraintStart_toEndOf="@+id/tvForkCount"
+        app:layout_constraintTop_toTopOf="@+id/tvForkCount" />
+
+    <TextView
+        android:id="@+id/tvIssuesCount"
+        style="@style/TextAppearance.MaterialComponents.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivIssues"
+        app:layout_constraintStart_toEndOf="@+id/ivIssues"
+        app:layout_constraintTop_toTopOf="@+id/ivIssues"
+        tools:text="12" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <com.evolutio.presentation.shared.views.CircleRectView
+        android:id="@+id/ivThumbnail"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:scaleType="centerCrop"
+        app:circleRadius="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvProgrammingLanguage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@drawable/ic_search" />
+
+    <TextView
+        android:id="@+id/tvRepoDescription"
+        style="@style/TextAppearance.MaterialComponents.Body2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:ellipsize="end"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivThumbnail"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="RepoOwner/ProjectName" />
+
+    <TextView
+        android:id="@+id/tvRepoCreatedAt"
+        style="@style/TextAppearance.MaterialComponents.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/created_at"
+        app:layout_constraintStart_toStartOf="@+id/tvRepoDescription"
+        app:layout_constraintTop_toBottomOf="@+id/tvRepoDescription" />
+
+    <TextView
+        android:id="@+id/tvRepoCreatedAtInfo"
+        style="@style/TextAppearance.MaterialComponents.Body2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@+id/tvRepoCreatedAt"
+        app:layout_constraintTop_toBottomOf="@+id/tvRepoDescription"
+        tools:text="12.12.2012" />
+
+    <TextView
+        android:id="@+id/tvRepoLastUpdatedAt"
+        style="@style/TextAppearance.MaterialComponents.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/last_updated_at"
+        app:layout_constraintStart_toStartOf="@+id/tvRepoDescription"
+        app:layout_constraintTop_toBottomOf="@+id/tvRepoCreatedAt" />
+
+    <TextView
+        android:id="@+id/tvProgrammingLanguage"
+        style="@style/TextAppearance.MaterialComponents.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/programming_language"
+        app:layout_constraintStart_toStartOf="@+id/tvRepoDescription"
+        app:layout_constraintTop_toBottomOf="@+id/tvRepoLastUpdatedAt" />
+
+    <TextView
+        android:id="@+id/tvProgrammingLanguageInfo"
+        style="@style/TextAppearance.MaterialComponents.Body2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@+id/tvProgrammingLanguage"
+        app:layout_constraintTop_toTopOf="@+id/tvProgrammingLanguage"
+        tools:text="Kotlin" />
+
+    <TextView
+        android:id="@+id/tvRepoLastUpdatedAtInfo"
+        style="@style/TextAppearance.MaterialComponents.Body2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@+id/tvRepoLastUpdatedAt"
+        app:layout_constraintTop_toBottomOf="@+id/tvRepoCreatedAtInfo"
+        tools:text="12.12.2012" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/icStars"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/ic_star"
+        android:backgroundTint="@color/light_gray"
+        app:layout_constraintStart_toStartOf="@+id/tvProgrammingLanguage"
+        app:layout_constraintTop_toBottomOf="@+id/tvProgrammingLanguage" />
+
+    <TextView
+        android:id="@+id/tvStarCount"
+        style="@style/TextAppearance.MaterialComponents.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/icStars"
+        app:layout_constraintStart_toEndOf="@+id/icStars"
+        app:layout_constraintTop_toTopOf="@+id/icStars"
+        tools:text="3212" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivWatchers"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="4dp"
+        android:background="@drawable/ic_watchers"
+        android:backgroundTint="@color/light_gray"
+        app:layout_constraintBottom_toBottomOf="@+id/tvStarCount"
+        app:layout_constraintStart_toEndOf="@+id/tvStarCount"
+        app:layout_constraintTop_toTopOf="@+id/tvStarCount" />
+
+    <TextView
+        android:id="@+id/tvWatcherCount"
+        style="@style/TextAppearance.MaterialComponents.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivWatchers"
+        app:layout_constraintStart_toEndOf="@+id/ivWatchers"
+        app:layout_constraintTop_toTopOf="@+id/ivWatchers"
+        tools:text="143" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivForks"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="4dp"
+        android:background="@drawable/ic_fork"
+        android:backgroundTint="@color/light_gray"
+        android:foregroundGravity="center"
+        app:layout_constraintBottom_toBottomOf="@+id/tvWatcherCount"
+        app:layout_constraintStart_toEndOf="@+id/tvWatcherCount"
+        app:layout_constraintTop_toTopOf="@+id/tvWatcherCount" />
+
+    <TextView
+        android:id="@+id/tvForkCount"
+        style="@style/TextAppearance.MaterialComponents.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivForks"
+        app:layout_constraintStart_toEndOf="@+id/ivForks"
+        app:layout_constraintTop_toTopOf="@+id/ivForks"
+        tools:text="523" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivIssues"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="4dp"
+        android:background="@drawable/ic_issues"
+        android:backgroundTint="@color/light_gray"
+        app:layout_constraintBottom_toBottomOf="@+id/tvForkCount"
+        app:layout_constraintStart_toEndOf="@+id/tvForkCount"
+        app:layout_constraintTop_toTopOf="@+id/tvForkCount" />
+
+    <TextView
+        android:id="@+id/tvIssuesCount"
+        style="@style/TextAppearance.MaterialComponents.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivIssues"
+        app:layout_constraintStart_toEndOf="@+id/ivIssues"
+        app:layout_constraintTop_toTopOf="@+id/ivIssues"
+        tools:text="12" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnOpenInBrowser"
+        style="@style/ElevatedButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/open_in_browser"
+        android:textStyle="normal"
+        android:theme="@style/MaterialButtonTheme"
+        app:cornerRadius="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/icStars"
+        app:rippleColor="@color/colorPrimary" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

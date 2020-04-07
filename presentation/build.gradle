@@ -1,0 +1,96 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: "kotlin-kapt"
+apply plugin: "androidx.navigation.safeargs.kotlin"
+
+android {
+    compileSdkVersion Dependencies.androidSdkVersion
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion Dependencies.androidSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    buildFeatures {
+        viewBinding = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+}
+
+dependencies {
+    implementation project(":domain")
+    implementation 'com.lapism:search:1.0.0'
+
+    implementation Dependencies.kotlinStandardLibrary
+
+    implementation Dependencies.appCompat
+    implementation Dependencies.androidCore
+    implementation Dependencies.material
+    implementation Dependencies.constraintLayout
+    implementation Dependencies.fragment
+
+    // Navigation
+    implementation Dependencies.navigationFragmentKtx
+    implementation Dependencies.navigationUiKtx
+
+    // Kotlin Android Coroutines
+    implementation Dependencies.coroutinesCore
+    implementation Dependencies.coroutinesAndroid
+
+    // ViewModel
+    implementation Dependencies.lifecyleExtensions
+    implementation Dependencies.lifecyleCore
+    implementation Dependencies.lifecyleRuntime
+    implementation Dependencies.lifecyleRuntimeKtx
+    implementation Dependencies.lifecycleViewModelKtx
+    implementation Dependencies.legacySupport
+    implementation Dependencies.lifeCycleLiveData
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    kapt Dependencies.lifeCycleCompiler
+
+    // Glide
+    implementation Dependencies.glide
+    kapt Dependencies.glideCompiler
+
+    // Preference
+    implementation Dependencies.preferences
+
+    // Dagger
+    implementation Dependencies.dagger
+    implementation Dependencies.daggerAndroid
+    implementation Dependencies.daggerAndroidSupport
+    kapt Dependencies.daggerAndroidProcessor
+    kapt Dependencies.daggerCompiler
+
+    // Test
+    testImplementation Dependencies.junitApi
+    testRuntimeOnly Dependencies.junitEngine
+
+    testImplementation Dependencies.coroutinesCore
+    testImplementation Dependencies.coroutineTest
+    testImplementation Dependencies.liveDataTest
+
+    testImplementation Dependencies.mockK
+}

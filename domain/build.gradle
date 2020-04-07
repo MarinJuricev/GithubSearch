@@ -1,0 +1,19 @@
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
+apply plugin: "kotlin-kapt"
+
+dependencies {
+    implementation Dependencies.kotlinStandardLibrary
+    implementation Dependencies.coroutinesCore
+
+    // Dagger
+    implementation Dependencies.dagger
+    kapt Dependencies.daggerCompiler
+
+    // Test
+    testImplementation Dependencies.mockK
+    testImplementation Dependencies.coroutinesCore
+}
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"

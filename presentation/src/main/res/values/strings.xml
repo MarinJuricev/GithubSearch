@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GithubSearch</string>
+    <string name="search_repositories">Search Repositories</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="last_updated_at">Last updated at:</string>
+    <string name="programming_language">Programming Language:</string>
+    <string name="placeholder">PlaceHolder</string>
+    <string name="open_in_browser">Open in Browser</string>
+    <string name="stars">Stars</string>
+    <string name="forks">Forks</string>
+    <string name="updated">Updated</string>
+    <string name="select_sort">Select Sort</string>
+    <string name="search">Search</string>
+
+    <!--Settings data-->
+    <string name="username">Username:</string>
+    <string name="company">Company:</string>
+    <string name="blog">Blog:</string>
+    <string name="location">Location:</string>
+    <string name="email">Email:</string>
+    <string name="hireable">Hireable:</string>
+    <string name="bio">Bio:</string>
+    <string name="public_repos">Public Repos:</string>
+    <string name="public_gists">Public Gists:</string>
+    <string name="followers">Followers:</string>
+    <string name="following">Following:</string>
+    <string name="created_at">Created At:</string>
+    <string name="updated_at">Updated At:</string>
+
+</resources>
