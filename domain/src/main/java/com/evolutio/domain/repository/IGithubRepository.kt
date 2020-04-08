@@ -15,4 +15,8 @@ interface IGithubRepository {
     suspend fun getUserData(
         query: String
     ): ResultWrapper<Exception, User>
+
+    suspend fun getAccessToken(
+        code: String
+    ): ResultWrapper<Exception, Unit>
 }

@@ -19,6 +19,10 @@ import javax.inject.Inject
 
 class SortDialogFragment : DialogFragment() {
 
+    companion object{
+        val TAG: String = SortDialogFragment::class.java.simpleName
+    }
+
     private lateinit var binding: DialogSortBinding
 
     @Inject

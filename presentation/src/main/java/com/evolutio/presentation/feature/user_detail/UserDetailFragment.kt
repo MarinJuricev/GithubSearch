@@ -1,6 +1,5 @@
 package com.evolutio.presentation.feature.user_detail
 
-
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.net.Uri
@@ -11,7 +10,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
+import androidx.transition.ChangeBounds
+import androidx.transition.Transition
 import androidx.transition.TransitionInflater
+import androidx.transition.TransitionManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -23,6 +25,7 @@ import com.evolutio.presentation.databinding.FragmentUserDetailBinding
 import com.evolutio.presentation.ext.doesDeviceHaveABrowser
 import com.evolutio.presentation.ext.generateDividerDecoration
 import com.evolutio.presentation.feature.repository_detail.RepositoryDetailFragmentArgs
+import com.evolutio.presentation.shared.TransitionAdapter
 import javax.inject.Inject
 
 class UserDetailFragment : BaseFragment() {
@@ -35,11 +38,7 @@ class UserDetailFragment : BaseFragment() {
     private lateinit var binding: FragmentUserDetailBinding
     private lateinit var userDataAdapter: UserDataAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        sharedElementEnterTransition =
-            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
-    }
+    private var listener: Transition.TransitionListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,14 +52,26 @@ class UserDetailFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        postponeEnterTransition()
+        sharedElementEnterTransition =
+            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
 
-        userVIewModel.handleEvent(UserDetailEvent.OnGetUserData(args.repository.author))
-
+        setupSharedElementTransition()
         bindRepositoryData(args.repository)
         setupRecyclerView()
-        observeUserData()
+        observeViewModelData()
         observeLoading()
         observeError()
+    }
+
+    private fun setupSharedElementTransition() {
+        val transition = sharedElementEnterTransition as? Transition
+        listener = object : TransitionAdapter() {
+            override fun onTransitionEnd(transition: Transition) {
+                userVIewModel.handleEvent(UserDetailEvent.OnGetUserData(args.repository.author))
+            }
+        }
+        transition?.addListener(listener as TransitionAdapter)
     }
 
     private fun observeLoading() {
@@ -129,14 +140,24 @@ class UserDetailFragment : BaseFragment() {
             .into(binding.userDetailInformation.ivThumbnail)
     }
 
-    private fun observeUserData() {
+    private fun observeViewModelData() {
         userVIewModel.userData.observe(viewLifecycleOwner, Observer { userData ->
             userDataAdapter.submitList(userData)
+        })
+
+        userVIewModel.bioData.observe(viewLifecycleOwner, Observer {
+            it?.let { bioData ->
+                binding.userDetailInformation.tvBioContent.text = bioData
+
+                TransitionManager.beginDelayedTransition(binding.root, ChangeBounds())
+                binding.userDetailInformation.groupBioInformation.visibility = View.VISIBLE
+            }
         })
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         binding.rvUserData.adapter = null
+        listener = null
     }
 }

@@ -6,4 +6,8 @@
         android:icon="@drawable/ic_search"
         app:showAsAction="collapseActionView|ifRoom|withText"
         app:actionViewClass="androidx.appcompat.widget.SearchView" />
+    <item android:id="@+id/login"
+        android:title="@string/login"
+        android:icon="@drawable/ic_login"
+        app:showAsAction="collapseActionView|ifRoom|withText"/>
 </menu>

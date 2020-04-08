@@ -1,5 +1,6 @@
 package com.evolutio.domain.model.search
 
-import com.evolutio.domain.model.search.AdapterItem
-
-class Loading : AdapterItem
+sealed class PaginationStatus : AdapterItem {
+    object Loading : PaginationStatus()
+    data class Error(val errorMessage: String) : PaginationStatus()
+}

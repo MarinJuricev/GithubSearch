@@ -33,6 +33,13 @@
                 android:name="repository"
                 app:argType="com.evolutio.domain.model.search.Repository" />
         </action>
+        <action
+            android:id="@+id/action_searchFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
 
     </fragment>
     <fragment
@@ -53,6 +60,7 @@
 
         </action>
     </fragment>
+
     <fragment
         android:id="@+id/userDetailFragment"
         android:name="com.evolutio.presentation.feature.user_detail.UserDetailFragment"
@@ -62,4 +70,21 @@
             android:name="repository"
             app:argType="com.evolutio.domain.model.search.Repository" />
     </fragment>
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.evolutio.presentation.feature.login.LoginFragment"
+        android:label="@string/app_name">
+        <action
+            android:id="@+id/action_loginFragment_to_privateRepositoryFragment"
+            app:destination="@id/privateRepositoryFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/privateRepositoryFragment"
+        android:name="com.evolutio.presentation.feature.private_user.PrivateUserDataFragment"
+        android:label="@string/app_name" />
 </navigation>

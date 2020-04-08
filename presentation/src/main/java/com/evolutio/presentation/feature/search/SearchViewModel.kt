@@ -4,9 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.evolutio.domain.feature.search.GetRepositories
-import com.evolutio.domain.feature.search.PrepareRepositoryData
+import com.evolutio.domain.feature.search.MapToAdapterData
 import com.evolutio.domain.model.search.AdapterData
 import com.evolutio.domain.model.search.AdapterItem
+import com.evolutio.domain.model.search.PaginationStatus
 import com.evolutio.domain.model.search.RepositoryRequest
 import com.evolutio.domain.service.ISharedPrefsService
 import com.evolutio.domain.shared.ResultWrapper
@@ -18,7 +19,7 @@ import javax.inject.Inject
 
 class SearchViewModel @Inject constructor(
     private val getRepositories: GetRepositories,
-    private val prepareRepositoryData: PrepareRepositoryData,
+    private val mapToAdapterData: MapToAdapterData,
     private val sharedPrefsService: ISharedPrefsService
 ) : BaseViewModel<SearchEvent>() {
 
@@ -27,15 +28,17 @@ class SearchViewModel @Inject constructor(
 
     private val _lastPage by lazy { MutableLiveData<Boolean>() }
     val lastPage: LiveData<Boolean> get() = _lastPage
+    private var lastQuery = ""
 
     override fun handleEvent(event: SearchEvent) {
         loadingState.postValue(true)
 
         when (event) {
             is SearchEvent.OnQueryTextChange -> {
+                lastQuery = event.query
                 getRepositoryData(event.query)
             }
-            is SearchEvent.OnPagingLoadMore -> getMoreRepositoryData(event.query, event.newPage)
+            is SearchEvent.OnPagingLoadMore -> getMoreRepositoryData(lastQuery, event.newPage)
         }
     }
 
@@ -50,10 +53,11 @@ class SearchViewModel @Inject constructor(
             is ResultWrapper.Value -> {
                 _lastPage.postValue(result.value.repositories.size >= result.value.totalCount)
                 _repositoryData.postValue(
-                    prepareRepositoryData.execute(
+                    mapToAdapterData.execute(
                         AdapterData(
                             totalCount = result.value.totalCount,
-                            adapterItems = result.value.repositories
+                            adapterItems = result.value.repositories,
+                            paginationStatus = PaginationStatus.Loading
                         )
                     )
                 )
@@ -65,8 +69,12 @@ class SearchViewModel @Inject constructor(
     }
 
     private fun getMoreRepositoryData(query: String, newPage: Int) = viewModelScope.launch {
-        val sort = sharedPrefsService.getValue(SORT_KEY, STAR_SORT) as String
+        if (query.isBlank()) {
+            errorState.postValue("Please enter a query in the Search!")
+            return@launch
+        }
 
+        val sort = sharedPrefsService.getValue(SORT_KEY, STAR_SORT) as String
         val request = RepositoryRequest(
             query = query,
             sort = sort,
@@ -84,15 +92,29 @@ class SearchViewModel @Inject constructor(
 
                 _lastPage.postValue(dataToBeFiltered.size >= result.value.totalCount)
                 _repositoryData.postValue(
-                    prepareRepositoryData.execute(
+                    mapToAdapterData.execute(
                         AdapterData(
                             totalCount = result.value.totalCount,
-                            adapterItems = dataToBeFiltered
+                            adapterItems = dataToBeFiltered,
+                            paginationStatus = PaginationStatus.Loading
                         )
                     )
                 )
             }
-            is ResultWrapper.Error -> errorState.postValue(result.error.message)
+            is ResultWrapper.Error -> {
+                _repositoryData.postValue(
+                    mapToAdapterData.execute(
+                        AdapterData(
+                            totalCount = -1,
+                            adapterItems = repositoryData.value ?: listOf(),
+                            paginationStatus = PaginationStatus.Error(
+                                result.error.message ?: "Unknown Error Occurred"
+                            )
+                        )
+                    )
+                )
+                errorState.postValue(result.error.message)
+            }
         }
 
         loadingState.postValue(false)

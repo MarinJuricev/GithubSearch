@@ -29,7 +29,7 @@ class PrepareUserData @Inject constructor(
                 result.add(UserItem("company", params.company))
             }
 
-            if (!params.blog.isNullOrBlank())
+            if (!params.blog.isBlank())
                 result.add(UserItem("blog", params.blog))
 
             params.location?.let {
@@ -42,11 +42,6 @@ class PrepareUserData @Inject constructor(
 
             params.hireable?.let {
                 result.add(UserItem("hireable", params.hireable))
-            }
-
-            //Budget way to handle long bios...
-            params.bio?.let {
-                result.add(UserItem("bio", params.bio.take(25).plus("...")))
             }
 
             result.add(UserItem("public_repos", params.publicRepos.toString()))

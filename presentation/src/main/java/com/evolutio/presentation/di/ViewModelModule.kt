@@ -2,6 +2,7 @@ package com.evolutio.presentation.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.evolutio.presentation.feature.login.LoginViewModel
 import com.evolutio.presentation.feature.search.SearchViewModel
 import com.evolutio.presentation.feature.user_detail.UserDetailViewModel
 import dagger.Binds
@@ -23,4 +24,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(UserDetailViewModel::class)
     abstract fun userDetailViewModel(viewModel: UserDetailViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(LoginViewModel::class)
+    abstract fun loginViewModel(viewModel: LoginViewModel): ViewModel
 }

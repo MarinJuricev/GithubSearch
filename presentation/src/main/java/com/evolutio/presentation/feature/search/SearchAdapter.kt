@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.ListAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.evolutio.domain.model.search.AdapterItem
+import com.evolutio.domain.model.search.PaginationStatus
 import com.evolutio.domain.model.search.Repository
+import com.evolutio.presentation.databinding.ItemErrorBinding
 import com.evolutio.presentation.databinding.ItemLoadingBinding
 import com.evolutio.presentation.databinding.ItemRepositoryBinding
 import com.evolutio.presentation.shared.views.BaseViewHolder
@@ -23,19 +25,33 @@ class SearchAdapter(
     companion object {
         const val VIEW_TYPE_LOADING = 0
         const val VIEW_TYPE_REPOSITORY = 1
+        const val VIEW_TYPE_ERROR = 2
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<AdapterItem> {
-        return if (viewType == VIEW_TYPE_LOADING) {
-            val itemLoadingBinding =
-                ItemLoadingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return when (viewType) {
+            VIEW_TYPE_LOADING -> {
+                val itemLoadingBinding =
+                    ItemLoadingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
-            LoadingViewHolder(itemLoadingBinding)
-        } else {
-            val itemRepositoryBinding =
-                ItemRepositoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                LoadingViewHolder(itemLoadingBinding)
+            }
+            VIEW_TYPE_ERROR -> {
+                val itemErrorBinding =
+                    ItemErrorBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
-            SearchViewHolder(itemRepositoryBinding, goToRepositoryDetail, goToUserDetail)
+                ErrorViewHolder(itemErrorBinding)
+            }
+            else -> {
+                val itemRepositoryBinding =
+                    ItemRepositoryBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                    )
+
+                SearchViewHolder(itemRepositoryBinding, goToRepositoryDetail, goToUserDetail)
+            }
         }
     }
 
@@ -48,10 +64,11 @@ class SearchAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (getItem(position) is Repository)
-            VIEW_TYPE_REPOSITORY
-        else
-            VIEW_TYPE_LOADING
+        return when (getItem(position)) {
+            is Repository -> VIEW_TYPE_REPOSITORY
+            is PaginationStatus.Error -> VIEW_TYPE_ERROR
+            else -> VIEW_TYPE_LOADING
+        }
     }
 }
 
@@ -96,6 +113,15 @@ class LoadingViewHolder(private val binding: ItemLoadingBinding) :
 
     override fun bind(data: AdapterItem) {
         binding.progressBar.visibility = View.VISIBLE
+    }
+}
+
+class ErrorViewHolder(private val binding: ItemErrorBinding) :
+    BaseViewHolder<AdapterItem>(binding.root) {
+
+    override fun bind(data: AdapterItem) {
+        if (data is PaginationStatus.Error)
+            binding.tvError.text = data.errorMessage
     }
 }
 

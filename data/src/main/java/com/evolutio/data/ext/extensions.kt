@@ -11,9 +11,6 @@ suspend fun <T : Any> safeApiCall(
         call.invoke()
     } catch (e: Exception) {
         return if (e is HttpException) {
-            // In an real production environment we'd send error codes, not just
-            // hard coded strings... these values can't be localized, but for our use-case
-            // it's good enough
             ResultWrapper.build { throw Exception(e.message()) }
         } else {
             ResultWrapper.build { throw Exception(e.message) }

@@ -7,6 +7,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -19,9 +20,11 @@ class NetworkModule {
 
     @Provides
     fun provideOkHttpClient(
+        headerInterceptor: Interceptor,
         httpLoggingInterceptor: HttpLoggingInterceptor
     ): OkHttpClient {
         val builder = OkHttpClient.Builder()
+            .addInterceptor(headerInterceptor)
             .readTimeout(20, TimeUnit.SECONDS)
             .connectTimeout(20, TimeUnit.SECONDS)
 
@@ -45,6 +48,20 @@ class NetworkModule {
         httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
         return httpLoggingInterceptor
+    }
+
+    @Provides
+    fun provideEncodingInterceptor(): Interceptor {
+        return Interceptor { chain ->
+            val original = chain.request()
+
+            val newRequest = original.newBuilder()
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "application/json")
+                .build()
+
+            return@Interceptor chain.proceed(newRequest)
+        }
     }
 
     @Provides

@@ -1,5 +1,7 @@
 package com.evolutio.presentation.di
 
+import com.evolutio.presentation.feature.login.LoginFragment
+import com.evolutio.presentation.feature.private_user.PrivateUserDataFragment
 import com.evolutio.presentation.feature.repository_detail.RepositoryDetailFragment
 import com.evolutio.presentation.feature.search.SearchFragment
 import com.evolutio.presentation.feature.user_detail.UserDetailFragment
@@ -26,6 +28,13 @@ abstract class FragmentModule {
     @FragmentScope
     abstract fun contributeSortDialogFragment(): SortDialogFragment
 
+    @ContributesAndroidInjector
+    @FragmentScope
+    abstract fun contributeLoginFragment(): LoginFragment
+
+    @ContributesAndroidInjector
+    @FragmentScope
+    abstract fun contributePrivateUserDataFragment(): PrivateUserDataFragment
 }
 
 @Scope

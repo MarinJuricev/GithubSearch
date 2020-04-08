@@ -22,10 +22,12 @@ object Versions {
     const val preferences = "1.1.0"
     const val livedata = "2.3.0-alpha01"
     const val coroutineTest = "1.3.4"
+    const val security = "1.0.0-beta01"
 }
 
 object Dependencies {
     val androidSdkVersion = 29
+    val minSdk = 23
 
     val kotlinStandardLibrary = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlin}"
     val kotlinPlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
@@ -62,6 +64,8 @@ object Dependencies {
     val okhttp = "com.squareup.okhttp3:okhttp:${Versions.okhttp}"
     val httpLoggingInterceptor =
         "com.squareup.okhttp3:logging-interceptor:${Versions.okhttp}"
+
+    val security = "androidx.security:security-crypto:${Versions.security}"
 
     // Presentation module dependencies
     val appCompat = "androidx.appcompat:appcompat:${Versions.appCompat}"

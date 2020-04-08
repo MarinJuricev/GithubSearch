@@ -19,6 +19,9 @@ class UserDetailViewModel @Inject constructor(
     private val _userData by lazy { MutableLiveData<List<UserItem>>() }
     val userData: LiveData<List<UserItem>> get() = _userData
 
+    private val _bioData by lazy { MutableLiveData<String>() }
+    val bioData: LiveData<String> get() = _bioData
+
     override fun handleEvent(event: UserDetailEvent) {
         loadingState.postValue(true)
 
@@ -29,7 +32,10 @@ class UserDetailViewModel @Inject constructor(
 
     private fun getUserData(userUrl: String) = viewModelScope.launch {
         when (val result = getUserData.execute(userUrl)) {
-            is ResultWrapper.Value -> _userData.postValue(prepareUserData.execute(result.value))
+            is ResultWrapper.Value -> {
+                _bioData.postValue(result.value.bio)
+                _userData.postValue(prepareUserData.execute(result.value))
+            }
             is ResultWrapper.Error -> errorState.postValue(result.error.message ?: "UNKNOWN_ERROR")
         }
         loadingState.postValue(false)

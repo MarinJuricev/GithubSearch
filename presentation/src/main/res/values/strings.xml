@@ -28,5 +28,11 @@
     <string name="following">Following:</string>
     <string name="created_at">Created At:</string>
     <string name="updated_at">Updated At:</string>
+    <string name="try_later">Please try again in a few minutes!</string>
+    <string name="login">Login</string>
+    <string name="request_login">Request Login</string>
+    <string name="clear_token">CLEAR TOKEN</string>
+    <string name="get_user_data">GET USER DATA</string>
+    <string name="empty_search">¯\\_(ツ)_/¯ \n Please enter something in the search bar!</string>
 
 </resources>

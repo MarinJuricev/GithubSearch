@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.evolutio.githubsearch"
-        minSdkVersion 21
+        minSdkVersion Dependencies.minSdk
         targetSdkVersion Dependencies.androidSdkVersion
         versionCode 1
         versionName "1.0"

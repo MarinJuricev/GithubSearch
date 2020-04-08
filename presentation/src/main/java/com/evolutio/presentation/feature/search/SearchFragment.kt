@@ -25,7 +25,6 @@ class SearchFragment : BaseFragment() {
     lateinit var searchViewModel: SearchViewModel
 
     private lateinit var searchAdapter: SearchAdapter
-    private var searchMenu: Menu? = null
     private var scrollListener: RecyclerViewPaginationListener? = null
 
     // Does this leek ?
@@ -46,7 +45,6 @@ class SearchFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupSearchRecycleView()
-        setupRefreshListener()
 
         observeRepositoryData()
         observeErrorState()
@@ -54,9 +52,10 @@ class SearchFragment : BaseFragment() {
         observeLoadingState()
         observeLastPageSate()
 
+        binding.searchPullToRefresh.isEnabled = false
         binding.btnSelectSort.setOnClickListener {
             val dialog = SortDialogFragment()
-            dialog.show(childFragmentManager, "DALOG")
+            dialog.show(childFragmentManager, SortDialogFragment.TAG)
         }
     }
 
@@ -75,24 +74,10 @@ class SearchFragment : BaseFragment() {
 
         scrollListener = object : RecyclerViewPaginationListener(layoutManager) {
             override fun loadMoreItems(newPage: Int) {
-                val menuItem = searchMenu?.findItem(R.id.search)
-                val searchView: SearchView =
-                    menuItem?.actionView as? SearchView ?: return
-
-                dispatchMoreData(searchView.query.toString(), newPage)
+                dispatchMoreData(newPage)
             }
         }
         binding.searchRecyclerView.addOnScrollListener(scrollListener as RecyclerViewPaginationListener)
-    }
-
-    private fun setupRefreshListener() {
-        binding.searchPullToRefresh.setOnRefreshListener {
-            val menuItem = searchMenu?.findItem(R.id.search)
-            val searchView: SearchView =
-                menuItem?.actionView as? SearchView ?: return@setOnRefreshListener
-
-            dispatchQueryMessage(searchView.query.toString())
-        }
     }
 
     private fun openRepositoryDetails(repository: Repository) =
@@ -130,6 +115,7 @@ class SearchFragment : BaseFragment() {
     private fun observeRepositoryData() {
         searchViewModel.repositoryData.observe(viewLifecycleOwner, Observer { repositoryData ->
             searchAdapter.submitList(repositoryData)
+            binding.tvNoContent.visibility = View.GONE
         })
     }
 
@@ -143,10 +129,6 @@ class SearchFragment : BaseFragment() {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.search_options_menu, menu)
 
-        // Get the menu reference so we can access the current text in searchView
-        // for setupRefreshListener
-        searchMenu = menu
-
         val item = menu.findItem(R.id.search)
         item.setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW or MenuItem.SHOW_AS_ACTION_IF_ROOM)
 
@@ -154,6 +136,17 @@ class SearchFragment : BaseFragment() {
         searchView.setOnQueryTextListener(DebouncingQueryTextListener(viewLifecycleOwner.lifecycle) { queryMessage ->
             dispatchQueryMessage(queryMessage)
         })
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.login -> {
+                findNavController()
+                    .navigate(SearchFragmentDirections.actionSearchFragmentToLoginFragment())
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun dispatchQueryMessage(searchQuery: String) {
@@ -165,16 +158,14 @@ class SearchFragment : BaseFragment() {
         scrollListener?.resetCurrentPage()
     }
 
-    private fun dispatchMoreData(query: String, newPage: Int) {
-        if (query.isNotBlank())
-            searchViewModel.handleEvent(SearchEvent.OnPagingLoadMore(query, newPage))
+    private fun dispatchMoreData(newPage: Int) {
+        searchViewModel.handleEvent(SearchEvent.OnPagingLoadMore(newPage))
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         // Cleanup
         binding.searchRecyclerView.adapter = null
-        searchMenu = null
         scrollListener = null
     }
 }
