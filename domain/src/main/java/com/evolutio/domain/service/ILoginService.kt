@@ -5,4 +5,5 @@ interface ILoginService {
     fun requestLogin()
     fun getAccessToken(): String
     fun saveAccessToken(accessToken: String)
+    fun clearAccessToken()
 }

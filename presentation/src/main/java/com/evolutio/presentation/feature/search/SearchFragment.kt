@@ -56,6 +56,10 @@ class SearchFragment : BaseFragment() {
         binding.btnSelectSort.setOnClickListener {
             val dialog = SortDialogFragment()
             dialog.show(childFragmentManager, SortDialogFragment.TAG)
+            childFragmentManager.executePendingTransactions()
+            dialog.dialog?.setOnDismissListener {
+                onSortChanged()
+            }
         }
     }
 
@@ -115,7 +119,11 @@ class SearchFragment : BaseFragment() {
     private fun observeRepositoryData() {
         searchViewModel.repositoryData.observe(viewLifecycleOwner, Observer { repositoryData ->
             searchAdapter.submitList(repositoryData)
-            binding.tvNoContent.visibility = View.GONE
+
+            if (repositoryData.isEmpty())
+                binding.tvNoContent.visibility = View.VISIBLE
+            else
+                binding.tvNoContent.visibility = View.GONE
         })
     }
 
@@ -147,6 +155,10 @@ class SearchFragment : BaseFragment() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun onSortChanged() {
+        searchViewModel.handleEvent(SearchEvent.OnSortChanged)
     }
 
     private fun dispatchQueryMessage(searchQuery: String) {

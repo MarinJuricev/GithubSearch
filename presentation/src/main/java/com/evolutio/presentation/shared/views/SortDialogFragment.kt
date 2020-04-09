@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 class SortDialogFragment : DialogFragment() {
 
-    companion object{
+    companion object {
         val TAG: String = SortDialogFragment::class.java.simpleName
     }
 
@@ -55,17 +55,17 @@ class SortDialogFragment : DialogFragment() {
 
         rbStarSort.setOnClickListener {
             sharedPrefsService.saveValue(SORT_KEY, STAR_SORT)
-            dismiss()
+            dialog?.dismiss()
         }
 
         rbForksSort.setOnClickListener {
             sharedPrefsService.saveValue(SORT_KEY, FORK_SORT)
-            dismiss()
+            dialog?.dismiss()
         }
 
         rbUpdatedSort.setOnClickListener {
             sharedPrefsService.saveValue(SORT_KEY, UPDATED_SORT)
-            dismiss()
+            dialog?.dismiss()
         }
     }
 

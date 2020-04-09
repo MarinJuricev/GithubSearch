@@ -10,10 +10,10 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 /**
- * Usecase used to build UserItems depending on the available User data,
+ * Use-case used to build UserItems depending on the available User data,
  * the field itemTitle represents ( in Androids case res.string value that can be localized )
  * if this was a Kotlin Multiplatform project this would map to the respected
- * platform R file
+ * platforms resource file
  */
 class PrepareUserData @Inject constructor(
     private val dispatcherProvider: DispatcherProvider

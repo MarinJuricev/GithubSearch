@@ -5,33 +5,46 @@
     android:layout_height="match_parent">
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnGetPrivateUserData"
+        style="@style/ElevatedButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/get_user_data"
+        android:textAllCaps="true"
+        android:theme="@style/MaterialButtonTheme"
+        app:cornerRadius="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnLogout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnRequestLogin"
+        app:rippleColor="@color/colorPrimary" />
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnRequestLogin"
         style="@style/ElevatedButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:text="@string/request_login"
         android:theme="@style/MaterialButtonTheme"
         app:cornerRadius="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_get_private_user_data"
+        app:layout_constraintBottom_toTopOf="@+id/btnGetPrivateUserData"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:rippleColor="@color/colorPrimary" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_get_private_user_data"
+        android:id="@+id/btnLogout"
         style="@style/ElevatedButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/get_user_data"
+        android:text="@string/delete_saved_token"
         android:theme="@style/MaterialButtonTheme"
         app:cornerRadius="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnRequestLogin"
+        app:layout_constraintTop_toBottomOf="@+id/btnGetPrivateUserData"
         app:rippleColor="@color/colorPrimary" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

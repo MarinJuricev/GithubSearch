@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.evolutio.presentation.BaseFragment
 import com.evolutio.presentation.databinding.FragmentPrivateUserBinding
+import com.evolutio.presentation.ext.generateDividerDecoration
 import com.evolutio.presentation.feature.user_detail.UserDataAdapter
 import javax.inject.Inject
 
@@ -46,7 +47,10 @@ class PrivateUserDataFragment : BaseFragment() {
         })
 
         val userDataAdapter = UserDataAdapter()
-        binding.rvPrivateData.adapter = userDataAdapter
+        binding.rvPrivateData.apply {
+            adapter = userDataAdapter
+            addItemDecoration(context.generateDividerDecoration())
+        }
 
         privateUserViewModel.userData.observe(viewLifecycleOwner, Observer { userData ->
             userDataAdapter.submitList(userData)

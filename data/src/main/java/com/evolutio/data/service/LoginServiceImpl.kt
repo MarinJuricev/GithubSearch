@@ -30,4 +30,8 @@ class LoginServiceImpl(
     override fun saveAccessToken(accessToken: String) {
         encryptedPrefsService.saveValue(ACCESS_TOKEN_KEY, accessToken)
     }
+
+    override fun clearAccessToken() =
+        encryptedPrefsService.saveValue(ACCESS_TOKEN_KEY, "")
+
 }

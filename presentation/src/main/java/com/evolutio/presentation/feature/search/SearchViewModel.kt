@@ -31,20 +31,20 @@ class SearchViewModel @Inject constructor(
     private var lastQuery = ""
 
     override fun handleEvent(event: SearchEvent) {
-        loadingState.postValue(true)
-
         when (event) {
-            is SearchEvent.OnQueryTextChange -> {
-                lastQuery = event.query
-                getRepositoryData(event.query)
-            }
+            is SearchEvent.OnQueryTextChange -> getRepositoryData(event.query)
             is SearchEvent.OnPagingLoadMore -> getMoreRepositoryData(lastQuery, event.newPage)
+            is SearchEvent.OnSortChanged -> resetViewModelData()
         }
     }
 
     private fun getRepositoryData(query: String) = viewModelScope.launch {
-        val sort = sharedPrefsService.getValue(SORT_KEY, STAR_SORT) as String
+        loadingState.postValue(true)
 
+        val sort = sharedPrefsService.getValue(SORT_KEY, STAR_SORT) as String
+        lastQuery = query
+
+        loadingState.postValue(true)
         val request = RepositoryRequest(
             query = query,
             sort = sort
@@ -69,6 +69,8 @@ class SearchViewModel @Inject constructor(
     }
 
     private fun getMoreRepositoryData(query: String, newPage: Int) = viewModelScope.launch {
+        loadingState.postValue(true)
+
         if (query.isBlank()) {
             errorState.postValue("Please enter a query in the Search!")
             return@launch
@@ -119,5 +121,13 @@ class SearchViewModel @Inject constructor(
 
         loadingState.postValue(false)
     }
+
+
+    private fun resetViewModelData() {
+        _repositoryData.postValue(emptyList())
+        _lastPage.postValue(false)
+        lastQuery = ""
+    }
+
 
 }
