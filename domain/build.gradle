@@ -13,7 +13,14 @@ dependencies {
     // Test
     testImplementation Dependencies.mockK
     testImplementation Dependencies.coroutinesCore
+
+    testImplementation Dependencies.junitApi
+    testRuntimeOnly Dependencies.junitEngine
 }
 
-sourceCompatibility = "1.7"
-targetCompatibility = "1.7"
+test {
+    useJUnitPlatform()
+}
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
