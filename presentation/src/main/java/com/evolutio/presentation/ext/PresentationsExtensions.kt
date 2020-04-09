@@ -6,7 +6,6 @@ import android.graphics.drawable.InsetDrawable
 import android.net.Uri
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
-import com.evolutio.presentation.R
 
 fun Context.generateDividerDecoration(
     insetLeft: Int = 0,
@@ -37,4 +36,3 @@ fun Context.doesDeviceHaveABrowser(url: String): Boolean {
     val intentWeb = Intent(Intent.ACTION_VIEW, webAddress)
     return intentWeb.resolveActivity(this.packageManager) != null
 }
-

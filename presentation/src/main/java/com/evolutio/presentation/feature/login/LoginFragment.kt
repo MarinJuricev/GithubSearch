@@ -33,18 +33,10 @@ class LoginFragment : BaseFragment() {
             loginViewModel.handleEvent(LoginEvent.OnLoginStart)
         }
 
-        binding.btnClearToken.setOnClickListener {
-            loginViewModel.handleEvent(LoginEvent.OnClearToken)
-        }
-
         binding.btnGetPrivateUserData.setOnClickListener {
             findNavController()
                 .navigate(LoginFragmentDirections.actionLoginFragmentToPrivateRepositoryFragment())
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-
-    }
 }

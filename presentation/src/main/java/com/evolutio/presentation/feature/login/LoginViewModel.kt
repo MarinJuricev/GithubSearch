@@ -1,6 +1,8 @@
 package com.evolutio.presentation.feature.login
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.evolutio.domain.feature.login.GetAccessToken
 import com.evolutio.domain.feature.login.StartLoginFlow
@@ -10,8 +12,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(
-    private val startLoginFlow: StartLoginFlow,
-    private val getAccessToken: GetAccessToken
+        private val startLoginFlow: StartLoginFlow,
+        private val getAccessToken: GetAccessToken
 ) : BaseViewModel<LoginEvent>(
 ) {
 
@@ -27,9 +29,9 @@ class LoginViewModel @Inject constructor(
     }
 
     private fun getAccessToken(code: String) = viewModelScope.launch {
-        when (val result = getAccessToken.execute(code)) {
-            is ResultWrapper.Value -> Log.d("ACCESS_TOKEN", "YAY")
-            is ResultWrapper.Error -> Log.d("ACCESS_TOKEN", "NAY")
+        when (getAccessToken.execute(code)) {
+            is ResultWrapper.Value -> Log.d("ACCESS_TOKEN", "Success")
+            is ResultWrapper.Error -> Log.d("ACCESS_TOKEN", "Fail")
         }
     }
 

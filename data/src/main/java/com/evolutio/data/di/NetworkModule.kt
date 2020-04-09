@@ -3,6 +3,8 @@ package com.evolutio.data.di
 import com.evolutio.data.BuildConfig
 import com.evolutio.data.remote.BASE_URL
 import com.evolutio.data.remote.RestApiInterface
+import com.evolutio.domain.service.IEncryptedPrefsService
+import com.evolutio.domain.shared.ACCESS_TOKEN_KEY
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -51,13 +53,15 @@ class NetworkModule {
     }
 
     @Provides
-    fun provideEncodingInterceptor(): Interceptor {
+    fun provideEncodingInterceptor(encryptedPrefs: IEncryptedPrefsService): Interceptor {
         return Interceptor { chain ->
             val original = chain.request()
+            val token = encryptedPrefs.getValue(ACCESS_TOKEN_KEY, "")
 
             val newRequest = original.newBuilder()
                 .addHeader("Content-Type", "application/json")
                 .addHeader("Accept", "application/json")
+                .addHeader("Authorization", "token $token")
                 .build()
 
             return@Interceptor chain.proceed(newRequest)

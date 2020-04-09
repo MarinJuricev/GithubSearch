@@ -1,7 +1,8 @@
 package com.evolutio.domain.repository
 
+import com.evolutio.domain.model.user.private_user.PrivateUser
 import com.evolutio.domain.model.search.SearchResponse
-import com.evolutio.domain.model.user.User
+import com.evolutio.domain.model.user.public_user.User
 import com.evolutio.domain.shared.ResultWrapper
 
 interface IGithubRepository {
@@ -19,4 +20,6 @@ interface IGithubRepository {
     suspend fun getAccessToken(
         code: String
     ): ResultWrapper<Exception, Unit>
+
+    suspend fun getPrivateUserData(): ResultWrapper<Exception, PrivateUser>
 }

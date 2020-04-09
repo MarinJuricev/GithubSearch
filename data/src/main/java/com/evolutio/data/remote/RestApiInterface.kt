@@ -1,5 +1,6 @@
 package com.evolutio.data.remote
 
+import com.evolutio.data.model.private_user.RemotePrivateUser
 import com.evolutio.data.model.repository.RemoteSearchResponse
 import com.evolutio.data.model.token.AccessTokenRequest
 import com.evolutio.data.model.token.RemoteAccessToken
@@ -37,5 +38,5 @@ interface RestApiInterface {
     ): Response<RemoteAccessToken>
 
     @GET(PRIVATE_USER_ENDPOINT)
-    suspend fun getPrivateUserData(): Response<ResponseBody>
+    suspend fun getPrivateUserData(): Response<RemotePrivateUser>
 }

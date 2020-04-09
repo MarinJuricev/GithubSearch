@@ -14,7 +14,7 @@
     <string name="select_sort">Select Sort</string>
     <string name="search">Search</string>
 
-    <!--Settings data-->
+    <!--UserItem data-->
     <string name="username">Username:</string>
     <string name="company">Company:</string>
     <string name="blog">Blog:</string>
@@ -28,6 +28,20 @@
     <string name="following">Following:</string>
     <string name="created_at">Created At:</string>
     <string name="updated_at">Updated At:</string>
+    <string name="avatar_url">Avatar URL:</string>
+    <string name="events_url">Events URL:</string>
+    <string name="followers_url">Followers URL:</string>
+    <string name="following_url">Following URL:</string>
+    <string name="gists_url">Gists URL:</string>
+    <string name="gravatar_id">Gravatar URL:</string>
+    <string name="html_url">Html URL:</string>
+    <string name="id">Id:</string>
+    <string name="node_id">Node ID:</string>
+    <string name="organizations_url">Organizations URL:</string>
+    <string name="repos_url">Repos URL:</string>
+    <string name="starred_url">Starred URL:</string>
+
+
     <string name="try_later">Please try again in a few minutes!</string>
     <string name="login">Login</string>
     <string name="request_login">Request Login</string>

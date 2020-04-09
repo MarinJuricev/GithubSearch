@@ -1,11 +1,13 @@
 package com.evolutio.data.remote
 
 import com.evolutio.data.ext.safeApiCall
+import com.evolutio.data.model.private_user.toPrivateUser
 import com.evolutio.data.model.repository.toSearchResponse
 import com.evolutio.data.model.token.AccessTokenRequest
 import com.evolutio.data.model.user.toUser
+import com.evolutio.domain.model.user.private_user.PrivateUser
 import com.evolutio.domain.model.search.SearchResponse
-import com.evolutio.domain.model.user.User
+import com.evolutio.domain.model.user.public_user.User
 import com.evolutio.domain.repository.IGithubRepository
 import com.evolutio.domain.service.ILoginService
 import com.evolutio.domain.shared.CLIENT_ID
@@ -60,6 +62,16 @@ class RemoteGithubRepositoryImpl(
                     loginService.saveAccessToken(result.value.accessToken ?: "")
                     ResultWrapper.build { Unit }
                 }
+                is ResultWrapper.Error -> result
+            }
+        }
+
+    override suspend fun getPrivateUserData(): ResultWrapper<Exception, PrivateUser> =
+        withContext(dispatcherProvider.provideIOContext()) {
+            when (val result = safeApiCall {
+                restApiInterface.getPrivateUserData()
+            }) {
+                is ResultWrapper.Value -> ResultWrapper.build { result.value.toPrivateUser() }
                 is ResultWrapper.Error -> result
             }
         }

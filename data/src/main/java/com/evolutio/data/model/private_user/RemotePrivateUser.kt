@@ -1,10 +1,10 @@
-package com.evolutio.data.model.user
+package com.evolutio.data.model.private_user
 
 
-import com.evolutio.domain.model.user.public_user.User
+import com.evolutio.domain.model.user.private_user.PrivateUser
 import com.google.gson.annotations.SerializedName
 
-data class RemoteUser(
+data class RemotePrivateUser(
     @SerializedName("avatar_url")
     val avatarUrl: String,
     @SerializedName("bio")
@@ -40,7 +40,7 @@ data class RemoteUser(
     @SerializedName("location")
     val location: String?,
     @SerializedName("login")
-    val login: String,
+    val login: String?,
     @SerializedName("name")
     val name: String,
     @SerializedName("node_id")
@@ -69,20 +69,38 @@ data class RemoteUser(
     val url: String
 )
 
-fun RemoteUser.toUser(): User {
-    return User(
-        name = this.name,
-        company = this.company,
+fun RemotePrivateUser.toPrivateUser(): PrivateUser {
+    return PrivateUser(
+        avatarUrl = this.avatarUrl,
+        bio = this.bio ?: "",
         blog = this.blog,
-        location = this.location,
-        email = this.email,
-        hireable = this.hireable,
-        bio = this.bio,
-        publicRepos = this.publicRepos,
-        publicGists = this.publicGists,
-        followers = this.followers,
-        following = this.following,
+        company = this.company ?: "",
         createdAt = this.createdAt,
-        updatedAt = this.updatedAt
+        email = this.email ?: "",
+        eventsUrl = this.eventsUrl,
+        following = this.following,
+        followers = this.followers,
+        followersUrl = this.followersUrl,
+        followingUrl = this.followingUrl,
+        gistsUrl = this.gistsUrl,
+        gravatarId = this.gravatarId,
+        hireable = this.hireable ?: "",
+        htmlUrl = this.htmlUrl,
+        id = this.id,
+        location = this.location ?: "",
+        login = this.login ?: "",
+        name = this.name,
+        nodeId = this.nodeId,
+        organizationsUrl = this.organizationsUrl,
+        publicGists = this.publicGists,
+        publicRepos = this.publicRepos,
+        receivedEventsUrl = this.receivedEventsUrl,
+        reposUrl = this.reposUrl,
+        siteAdmin = this.siteAdmin,
+        starredUrl = this.starredUrl,
+        subscriptionsUrl = this.subscriptionsUrl,
+        type = this.type,
+        updatedAt = this.updatedAt,
+        url = this.url
     )
 }

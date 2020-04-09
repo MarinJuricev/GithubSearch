@@ -21,7 +21,6 @@ class BaseActivity : AppCompatActivity(R.layout.activity_main) {
     @Inject
     lateinit var loginViewModel: LoginViewModel
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)

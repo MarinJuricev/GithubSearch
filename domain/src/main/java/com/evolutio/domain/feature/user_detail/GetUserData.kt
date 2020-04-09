@@ -1,6 +1,6 @@
 package com.evolutio.domain.feature.user_detail
 
-import com.evolutio.domain.model.user.User
+import com.evolutio.domain.model.user.public_user.User
 import com.evolutio.domain.repository.IGithubRepository
 import com.evolutio.domain.shared.ResultWrapper
 import com.evolutio.domain.shared.UseCaseWithParams
