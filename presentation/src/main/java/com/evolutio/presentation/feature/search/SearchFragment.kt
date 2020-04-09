@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.findNavController
@@ -56,10 +58,14 @@ class SearchFragment : BaseFragment() {
         binding.btnSelectSort.setOnClickListener {
             val dialog = SortDialogFragment()
             dialog.show(childFragmentManager, SortDialogFragment.TAG)
-            childFragmentManager.executePendingTransactions()
-            dialog.dialog?.setOnDismissListener {
-                onSortChanged()
-            }
+            childFragmentManager.registerFragmentLifecycleCallbacks(object :
+                FragmentManager.FragmentLifecycleCallbacks() {
+                override fun onFragmentViewDestroyed(fm: FragmentManager, f: Fragment) {
+                    super.onFragmentViewDestroyed(fm, f)
+                    onSortChanged()
+                    childFragmentManager.unregisterFragmentLifecycleCallbacks(this)
+                }
+            }, false)
         }
     }
 
