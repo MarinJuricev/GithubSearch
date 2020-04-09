@@ -1,4 +1,4 @@
-### GithubSearch
+# GithubSearch
 
 Native Android github repo search app written in Kotlin, this was a weekend project where I wanted to test some of the
 Jetpack releases
@@ -13,7 +13,7 @@ Doman module is a pure Kotlin module which utilizes Kotlin coroutines for asynch
 
 Data module consists of the standard android http package ( Retrofit + Okhttp )
 
-### USAGE
+# USAGE
 
 Enter something inside the SearchView to initiate the search.
 
@@ -28,7 +28,7 @@ by clicking the "GET PRIVATE USER DATA"
 Clicking the "DELETE SAVED TOKEN" only erases the token from the app, it DOESN'T revoke the access token inside
 the OAuth app, if you want to do that please revoke it by going into your Settings -> Applications -> Authorized Ouath Apps and revoke it there
 
-### TESTS
+# TESTS
 
 Since this was just a fun project, the app isn't fully tested, I only put 1 unit test per layer so that the general
 idea how to test this implemntation is out there :)
@@ -37,7 +37,7 @@ idea how to test this implemntation is out there :)
 - Domain module test: PrepareUserDataTest
 - Data module test: RemoteGithubRepositoryImplTest
 
-#Libs used: 
+# Libs used: 
 
 - Jetpack Navigation
 - Coroutines
