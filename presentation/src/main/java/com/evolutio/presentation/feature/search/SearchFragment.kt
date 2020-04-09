@@ -28,6 +28,7 @@ class SearchFragment : BaseFragment() {
 
     private lateinit var searchAdapter: SearchAdapter
     private var scrollListener: RecyclerViewPaginationListener? = null
+    private var searchView: SearchView? = null
 
     // Does this leek ?
     // Reference https://developer.android.com/topic/libraries/view-binding
@@ -146,8 +147,8 @@ class SearchFragment : BaseFragment() {
         val item = menu.findItem(R.id.search)
         item.setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW or MenuItem.SHOW_AS_ACTION_IF_ROOM)
 
-        val searchView: SearchView = item.actionView as? SearchView ?: return
-        searchView.setOnQueryTextListener(DebouncingQueryTextListener(viewLifecycleOwner.lifecycle) { queryMessage ->
+        searchView = item.actionView as? SearchView ?: return
+        searchView?.setOnQueryTextListener(DebouncingQueryTextListener(viewLifecycleOwner.lifecycle) { queryMessage ->
             dispatchQueryMessage(queryMessage)
         })
     }
@@ -164,6 +165,8 @@ class SearchFragment : BaseFragment() {
     }
 
     private fun onSortChanged() {
+        searchView?.setQuery("", false)
+        searchView?.clearFocus()
         searchViewModel.handleEvent(SearchEvent.OnSortChanged)
     }
 
@@ -172,7 +175,7 @@ class SearchFragment : BaseFragment() {
         // When we change the query we don't want to fetch wrong pages, imagine this scenario
         // we searched for a term "A", and scrolled to page 6, now we reset the
         // query to term "B", and now we don't want to fetch page 7, we want page 2,
-        // that's why after every dispatchQueryMessage we also reset the page.
+        // that's why after every dispatchQueryMessage we also reset the listenerData.
         scrollListener?.resetCurrentPage()
     }
 
@@ -185,5 +188,6 @@ class SearchFragment : BaseFragment() {
         // Cleanup
         binding.searchRecyclerView.adapter = null
         scrollListener = null
+        searchView = null
     }
 }
