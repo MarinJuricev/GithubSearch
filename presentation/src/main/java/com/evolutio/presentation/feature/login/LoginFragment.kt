@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.evolutio.presentation.BaseFragment
+import com.evolutio.presentation.R
 import com.evolutio.presentation.databinding.FragmentLoginBinding
 import javax.inject.Inject
 
@@ -28,6 +29,12 @@ class LoginFragment : BaseFragment() {
         return binding.root
     }
 
+    override fun onStart() {
+        super.onStart()
+
+        loginViewModel.handleEvent(LoginEvent.OnAccessTokenStatus)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -44,13 +51,28 @@ class LoginFragment : BaseFragment() {
                 .navigate(LoginFragmentDirections.actionLoginFragmentToPrivateRepositoryFragment())
         }
 
+        observeViewModelData()
+    }
+
+    private fun observeViewModelData() {
         loginViewModel.tokenDeletion.observe(viewLifecycleOwner, Observer {
-            Toast.makeText(requireContext(), "Token deleted successfully", Toast.LENGTH_SHORT)
+            Toast.makeText(requireContext(), getString(R.string.token_delete), Toast.LENGTH_SHORT)
                 .show()
         })
 
         loginViewModel.error.observe(viewLifecycleOwner, Observer { errorMessage ->
             Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+        })
+
+        loginViewModel.tokenAvailability.observe(viewLifecycleOwner, Observer { tokenAvailability ->
+            when (tokenAvailability) {
+                TokenAvailability.Available -> binding.tvAccessTokenPresent.text = getString(
+                    R.string.token_status, getString(R.string.available)
+                )
+                TokenAvailability.NotAvailable -> binding.tvAccessTokenPresent.text = getString(
+                    R.string.token_status, getString(R.string.token_not_available)
+                )
+            }
         })
     }
 

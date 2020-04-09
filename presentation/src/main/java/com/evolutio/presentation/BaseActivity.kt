@@ -3,6 +3,7 @@ package com.evolutio.presentation
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
@@ -11,6 +12,7 @@ import com.evolutio.domain.shared.ERROR_PARAMETER
 import com.evolutio.domain.shared.REDIRECT_URI
 import com.evolutio.presentation.feature.login.LoginEvent
 import com.evolutio.presentation.feature.login.LoginViewModel
+import com.evolutio.presentation.feature.login.TokenStatus
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
@@ -26,6 +28,24 @@ class BaseActivity : AppCompatActivity(R.layout.activity_main) {
         super.onCreate(savedInstanceState)
 
         setupNavController()
+        observeTokenStatus()
+    }
+
+    private fun observeTokenStatus() {
+        loginViewModel.accessTokenStatus.observe(this, Observer { tokenStatus ->
+            when (tokenStatus) {
+                is TokenStatus.Success -> Toast.makeText(
+                    this,
+                    getString(R.string.token_success),
+                    Toast.LENGTH_SHORT
+                ).show()
+                is TokenStatus.Failure -> Toast.makeText(
+                    this,
+                    getString(R.string.token_fail),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
     }
 
     private fun setupNavController() {

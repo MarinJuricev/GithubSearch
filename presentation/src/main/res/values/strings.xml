@@ -49,5 +49,11 @@
     <string name="get_user_data">Get private user data</string>
     <string name="empty_search">¯\\_(ツ)_/¯ \n Please enter something in the search bar!</string>
     <string name="delete_saved_token">Delete Saved Token</string>
+    <string name="token_status">Token status: %1$s</string>
+    <string name="token_success">Token fetched successfully</string>
+    <string name="token_fail">An error occurred while fetching the token</string>
+    <string name="token_delete">Token deleted successfully</string>
+    <string name="available">available</string>
+    <string name="token_not_available">please click request login to fetch the access token</string>
 
 </resources>
