@@ -1,5 +1,5 @@
 object Versions {
-    const val kotlin = "1.3.70"
+    const val kotlin = "1.3.72"
     const val navigation = "2.3.0-alpha04"
     const val coroutines = "1.3.5"
     const val lifecycle = "2.2.0"
